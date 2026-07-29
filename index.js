@@ -32,7 +32,7 @@ const client = new Client({
 });
 
 const prefix = "h";
-const token = "MTUyNTMxNzE0NjY0Mzc5MTk0Mw.G-RyDm.saTDjnbt9zHTn-QbTocHBSUCncg6TH8TIPp-qg";
+const token = process.env.MTUyNTMxNzE0NjY0Mzc5MTk0Mw.G-RyDm.saTDjnbt9zHTn-QbTocHBSUCncg6TH8TIPp-qg;
 
 // ===== QUẢN LÝ WARN (ĐỌC/GHI FILE warns.json) =====
 let warns = {};
