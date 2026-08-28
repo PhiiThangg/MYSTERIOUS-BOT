@@ -1,14 +1,3 @@
-const express = require('express');
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-app.get('/', (req, res) => {
-    res.send('Bot Discord đang hoạt động 24/7!');
-});
-
-app.listen(PORT, () => {
-    console.log(`Web server đang chạy trên cổng ${PORT}`);
-});
 const {
     Client,
     GatewayIntentBits,
@@ -27,12 +16,13 @@ const client = new Client({
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildMessageReactions
+        GatewayIntentBits.GuildMessageReactions 
     ]
 });
 
 const prefix = "h";
-const token = process.env.MTUyNTMxNzE0NjY0Mzc5MTk0Mw.G-RyDm.saTDjnbt9zHTn-QbTocHBSUCncg6TH8TIPp-qg;
+const token = "MTUyNTMxNzE0NjY0Mzc5MTk0Mw.GxarEy.la0cgeJDCQwJmFus4S5ZCd5esEmyuDWxlWeMzk"
+const OWNER_ID = "504850928445292555";
 
 // ===== QUẢN LÝ WARN (ĐỌC/GHI FILE warns.json) =====
 let warns = {};
@@ -50,7 +40,7 @@ function saveWarns() {
     fs.writeFileSync(warnsFile, JSON.stringify(warns, null, 2));
 }
 
-// ===== QUẢN LÝ DONATE (ĐỌC/GHI FILE donates.json) =====
+// quan ly donate
 let donates = {};
 const donatesFile = "./donates.json";
 
@@ -66,7 +56,7 @@ function saveDonates() {
     fs.writeFileSync(donatesFile, JSON.stringify(donates, null, 2));
 }
 
-// Cấu hình ID các role VIP tương ứng
+// id role vip theo donate
 const vipRoles = {
     1: "1529401042897211473",
     2: "1529401182156488764",
@@ -75,7 +65,7 @@ const vipRoles = {
     5: "1529401569970491432"
 };
 
-// Hàm tự động cấp role VIP dựa trên tổng tiền
+// ham tu dong add role khi du donate
 async function checkAndAssignVIP(member, totalAmount) {
     let targetTier = 0;
     if (totalAmount >= 300000) targetTier = 5;
@@ -129,9 +119,9 @@ function getHomeEmbed(guild, client, prefix) {
         .setDescription(
             `## **Danh sách các lệnh của bot**\n` +
             `## <a:trangtim:1529563713516998779> prefix : \`${prefix}\`\n` +
-            `**__Bot được dev bởi :__ <@504850928445292555>**`
+            `**__Bot được dev bởi :__ <@1530444381343973378> dzai vai lon**`
         )
-        .setFooter({ text: `Tổng 3 danh mục lệnh`, iconURL: client.user.displayAvatarURL() })
+        .setFooter({ text: `Tổng 4 danh mục lệnh`, iconURL: client.user.displayAvatarURL() })
         .setTimestamp();
 }
 
@@ -269,7 +259,7 @@ client.on("messageCreate", async (message) => {
             .setTitle("🔨 Ban thành công")
             .setDescription(`${member} đã bị ban.`)
             .addFields(
-                { name: "👤 Moderator", value: message.author.tag, inline: true },
+                { name: "<a:camap:1529737268892274890> Moderator", value: message.author.tag, inline: true },
                 { name: "📝 Lý do", value: reason, inline: true }
             );
 
@@ -300,7 +290,7 @@ client.on("messageCreate", async (message) => {
                 .setTitle("🔓 Unban thành công")
                 .setDescription(`Đã gỡ ban thành công cho người dùng có ID: \`${userId}\``)
                 .addFields(
-                    { name: "👤 Moderator", value: message.author.tag, inline: true },
+                    { name: "<a:camap:1529737268892274890> Moderator", value: message.author.tag, inline: true },
                     { name: "📝 Lý do", value: reason, inline: true }
                 );
 
@@ -312,12 +302,6 @@ client.on("messageCreate", async (message) => {
 
     // ===== KICK =====
     if (command === "kick") {
-
-        if (!message.member.permissions.has(PermissionsBitField.Flags.KickMembers))
-            return tempReply(
-                message,
-                `❌ Bạn không có quyền để sử dụng lệnh này!\n\n📌 Quyền hạn: Đuổi thành viên.`
-            );
 
         const member = message.mentions.members.first();
 
@@ -333,7 +317,7 @@ client.on("messageCreate", async (message) => {
             .setTitle("👢 Kick thành công")
             .setDescription(`${member} đã bị kick.`)
             .addFields(
-                { name: "👤 Moderator", value: message.author.tag, inline: true },
+                { name: "<a:camap:1529737268892274890> Moderator", value: message.author.tag, inline: true },
                 { name: "📝 Lý do", value: reason, inline: true }
             );
 
@@ -369,7 +353,7 @@ client.on("messageCreate", async (message) => {
             .setDescription(`${member} đã bị mute.`)
             .addFields(
                 { name: "⏱️ Thời gian", value: `${minutes} phút`, inline: true },
-                { name: "👤 Moderator", value: message.author.tag, inline: true },
+                { name: "<a:camap:1529737268892274890> Moderator", value: message.author.tag, inline: true },
                 { name: "📝 Lý do", value: reason }
             );
 
@@ -408,7 +392,7 @@ client.on("messageCreate", async (message) => {
             .setTitle("⚠️ Thành viên đã bị cảnh cáo")
             .setDescription(`${member} đã nhận một cảnh cáo.`)
             .addFields(
-                { name: "👤 Moderator", value: message.author.tag, inline: true },
+                { name: "<a:camap:1529737268892274890> Moderator", value: message.author.tag, inline: true },
                 { name: "📝 Lý do", value: reason, inline: true },
                 { name: "📊 Tổng Warn", value: `${warns[member.id].length}`, inline: true }
             );
@@ -681,59 +665,90 @@ client.on("messageCreate", async (message) => {
     }
 
     // ===== ROLE (hrole) =====
-    if (command === "role") {
-        if (!message.member.permissions.has(PermissionsBitField.Flags.ManageRoles))
-            return tempReply(
-                message,
-                `❌ Bạn không có quyền để sử dụng lệnh này!\n\n📌 Quyền hạn: Quản lý vai trò (Manage Roles).`
-            );
+    else if (command === "role") {
+        if (message.author.id !== OWNER_ID && !message.member.permissions.has(PermissionsBitField.Flags.ManageRoles)) {
+            const errEmbed = new EmbedBuilder()
+                .setColor("#ff0000")
+                .setTitle("❌ Không có quyền")
+                .setDescription(`Bạn không có quyền để sử dụng lệnh này!\n\n📌 Quyền hạn: Quản lý vai trò (Manage Roles).`);
+            return message.reply({ embeds: [errEmbed] });
+        }
 
-        const member = message.mentions.members.first();
-        if (!member)
-            return tempReply(message, `❌ Hãy mention thành viên cần cấp/gỡ role! (Ví dụ: \`${prefix}role @user @admin\`)`);
+        const targetMember = message.mentions.members.first();
+        let roleQuery = "";
 
-        // Lấy role từ mention hoặc từ tên/ID nhập vào
-        const role = message.mentions.roles.first() || 
-                     message.guild.roles.cache.get(args[1]) || 
-                     message.guild.roles.cache.find(r => r.name.toLowerCase() === args.slice(1).join(" ").toLowerCase());
+        if (targetMember) {
+            roleQuery = args.slice(1).join(" ");
+        } else {
+            roleQuery = args.join(" ");
+        }
 
-        if (!role)
-            return tempReply(message, `❌ Không tìm thấy role cần thêm/gỡ! Hãy mention role hoặc nhập đúng tên.`);
+        if (!roleQuery) {
+            const errEmbed = new EmbedBuilder()
+                .setColor("#ff0000")
+                .setTitle("❌ Thiếu thông tin")
+                .setDescription(`Hãy nhập tên role hoặc mention thành viên!\n\n📌 Ví dụ: \`${prefix}role Cư dân\` hoặc \`${prefix}role @user Cư dân \``);
+            return message.reply({ embeds: [errEmbed] });
+        }
+
+        const memberToModify = targetMember || message.member;
+
+        // Tìm kiếm role khớp một phần tên (không phân biệt hoa thường)
+        const roleToModify = message.guild.roles.cache.find(r => 
+            r.name.toLowerCase().includes(roleQuery.toLowerCase())
+        );
+
+        if (!roleToModify) {
+            const errEmbed = new EmbedBuilder()
+                .setColor("#ff0000")
+                .setTitle("❌ Không tìm thấy role")
+                .setDescription(`Không tìm thấy role nào có tên chứa từ khóa: "**${roleQuery}**"!`);
+            return message.reply({ embeds: [errEmbed] });
+        }
 
         // Kiểm tra vị trí phân cấp role (Role của bot phải cao hơn role muốn cấp)
         const botMember = message.guild.members.cache.get(client.user.id);
-        if (role.position >= botMember.roles.highest.position) {
-            return tempReply(message, `❌ Tôi không thể thêm/gỡ role này vì vị trí của nó cao hơn hoặc bằng role cao nhất của bot!`);
+        if (roleToModify.position >= botMember.roles.highest.position) {
+            const errEmbed = new EmbedBuilder()
+                .setColor("#ff0000")
+                .setTitle("❌ Lỗi phân cấp")
+                .setDescription(`Tôi không thể thêm/gỡ role này vì vị trí của nó cao hơn hoặc bằng role cao nhất của bot!`);
+            return message.reply({ embeds: [errEmbed] });
         }
 
         try {
-            if (member.roles.cache.has(role.id)) {
+            if (memberToModify.roles.cache.has(roleToModify.id)) {
                 // Nếu thành viên đã có role -> Tiến hành gỡ
-                await member.roles.remove(role);
+                await memberToModify.roles.remove(roleToModify);
                 const embed = new EmbedBuilder()
                     .setColor("#481f86")
-                    .setTitle("📤 Gỡ Role thành công")
-                    .setDescription(`Đã gỡ role ${role} khỏi ${member}.`)
+                    .setTitle("<a:tikhong:1542901135088812092> Gỡ Role thành công")
+                    .setDescription(`Đã gỡ role ${roleToModify} khỏi ${memberToModify}.`)
                     .addFields(
-                        { name: "👤 Moderator", value: message.author.tag, inline: true },
-                        { name: "🛡️ Role", value: role.name, inline: true }
+                        { name: "<a:camap:1529737268892274890> Moderator", value: message.author.tag, inline: true },
+                        { name: "<a:hoatim:1529735587026964491> Role", value: roleToModify.name, inline: true }
                     );
                 return message.reply({ embeds: [embed] });
             } else {
                 // Nếu thành viên chưa có role -> Tiến hành thêm
-                await member.roles.add(role);
+                await memberToModify.roles.add(roleToModify);
                 const embed = new EmbedBuilder()
                     .setColor("#481f86")
-                    .setTitle("📥 Thêm Role thành công")
-                    .setDescription(`Đã thêm role ${role} cho ${member}.`)
+                    .setTitle("<a:tikhong:1542901135088812092> Thêm Role thành công")
+                    .setDescription(`Đã thêm role ${roleToModify} cho ${memberToModify}.`)
                     .addFields(
-                        { name: "👤 Moderator", value: message.author.tag, inline: true },
-                        { name: "🛡️ Role", value: role.name, inline: true }
+                        { name: "<a:camap:1529737268892274890> Moderator", value: message.author.tag, inline: true },
+                        { name: "<a:hoatim:1529735587026964491> Role", value: roleToModify.name, inline: true }
                     );
                 return message.reply({ embeds: [embed] });
             }
         } catch (error) {
-            return tempReply(message, `❌ Đã xảy ra lỗi! Hãy đảm bảo bot có quyền **Manage Roles** và thứ hạng role của bot nằm ở trên cùng.`);
+            console.error(error);
+            const errEmbed = new EmbedBuilder()
+                .setColor("#ff0000")
+                .setTitle("❌ Đã xảy ra lỗi")
+                .setDescription(`Không thể thay đổi role! Hãy đảm bảo bot có quyền **Manage Roles** và thứ hạng role của bot nằm ở trên cùng.`);
+            return message.reply({ embeds: [errEmbed] });
         }
     }
 
@@ -857,19 +872,25 @@ if (command === "dn") {
                         label: "Quản trị (Moderation)",
                         description: "Các lệnh ban, unban, kick, mute",
                         value: "help_mod",
-                        emoji: "🛡️"
+                        emoji: "<a:saodoto:1529738089918890106>"
                     },
                     {
                         label: "Cảnh cáo (Warn)",
                         description: "Các lệnh warn, hcwarn, hrwarn",
                         value: "help_warn",
-                        emoji: "⚠️"
+                        emoji: "<a:saohongto:1529736991598575626>"
                     },
                     {
                         label: "Giveaway",
                         description: "Lệnh tạo và quản lý giveaway",
                         value: "help_ga",
-                        emoji: "🎉"
+                        emoji: "<a:saotimto:1529563552464244939>"
+                    },
+                    {
+                        label: "User",
+                        description: "Lệnh thuộc user",
+                        value: "help_user",
+                        emoji: "<a:saoxanhto:1529737259518263386>"
                     }
                 ])
         );
@@ -906,9 +927,12 @@ client.on("interactionCreate", async (interaction) => {
                         `* **Lệnh** : \`${prefix}kick @user [lý do]\`\n\n` +
                         `### \`${prefix}mute\`\n` +
                         `* **Mô tả** : Hạn chế (timeout) thành viên.\n` +
-                        `* **Lệnh** : \`${prefix}mute @user <phút> [lý do]\``
+                        `* **Lệnh** : \`${prefix}mute @user <phút> [lý do]\``+
+                                                `### \`${prefix}mute\`\n` +
+                        `* **Mô tả** : Quản lý vai trò hàng loạt cho thành viên.\n` +
+                        `* **Lệnh** : \`${prefix}role @user <tên role>\``
                     )
-                    .setFooter({ text: `Tổng 3 danh mục lệnh`, iconURL: client.user.displayAvatarURL() })
+                    .setFooter({ text: `Tổng 4 danh mục lệnh`, iconURL: client.user.displayAvatarURL() })
                     .setTimestamp();
 
                 return interaction.reply({ embeds: [embed], ephemeral: true });
@@ -933,7 +957,7 @@ client.on("interactionCreate", async (interaction) => {
                         `* **Mô tả** : Xóa cảnh cáo của thành viên.\n` +
                         `* **Lệnh** : \`${prefix}rwarn @user <số thứ tự>\``
                     )
-                    .setFooter({ text: `Tổng 3 danh mục lệnh`, iconURL: client.user.displayAvatarURL() })
+                    .setFooter({ text: `Tổng 4 danh mục lệnh`, iconURL: client.user.displayAvatarURL() })
                     .setTimestamp();
 
                 return interaction.reply({ embeds: [embed], ephemeral: true });
@@ -958,7 +982,25 @@ client.on("interactionCreate", async (interaction) => {
                         `* **Mô tả** : Dừng giveaway đang chạy.\n` +
                         `* **Lệnh** : \`${prefix}gastop <message_id>\``
                     )
-                    .setFooter({ text: `Tổng 3 danh mục lệnh`, iconURL: client.user.displayAvatarURL() })
+                    .setFooter({ text: `Tổng 4 danh mục lệnh`, iconURL: client.user.displayAvatarURL() })
+                    .setTimestamp();
+
+                return interaction.reply({ embeds: [embed], ephemeral: true });
+            }
+                        if (selected === "help_user") {
+                const embed = new EmbedBuilder()
+                    .setColor("#481f86")
+                    .setAuthor({ 
+                        name: interaction.guild.name, 
+                        iconURL: interaction.guild.iconURL({ dynamic: true }) 
+                    })
+                    .setTitle("<a:camap:1529737268892274890> Danh sách lệnh User")
+                    .setDescription(
+                        `### \`${prefix}avatar\`\n` +
+                        `* **Mô tả** : Xem avatar của bạn hoặc yêu cầu xem của người khác.\n` +
+                        `* **Lệnh** : \`${prefix}avatar <@user> | ${prefix}av <@user>\`\n\n` 
+                    )
+                    .setFooter({ text: `Tổng 4 danh mục lệnh`, iconURL: client.user.displayAvatarURL() })
                     .setTimestamp();
 
                 return interaction.reply({ embeds: [embed], ephemeral: true });
@@ -1082,4 +1124,4 @@ client.on("interactionCreate", async (interaction) => {
     }
 });
 
-client.login("MTUyNTMxNzE0NjY0Mzc5MTk0Mw.G-RyDm.saTDjnbt9zHTn-QbTocHBSUCncg6TH8TIPp-qg");
+client.login("MTUyNTMxNzE0NjY0Mzc5MTk0Mw.GxarEy.la0cgeJDCQwJmFus4S5ZCd5esEmyuDWxlWeMzk");
