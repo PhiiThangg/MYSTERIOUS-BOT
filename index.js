@@ -97,7 +97,6 @@ function saveWarns() {
     fs.writeFileSync(warnsFile, JSON.stringify(warns, null, 2));
 }
 // ===== Railway -> GitHub: debounce 2 phút sau lần thay đổi cuối =====
-const DATA_DIR = path.join(__dirname, "..", "data");
 const GITHUB_SYNC_BRANCH = process.env.GITHUB_BRANCH || "main";
 const GITHUB_SYNC_DELAY = 2 * 60 * 1000;
 const githubClient = process.env.GITHUB_TOKEN
@@ -8415,4 +8414,4 @@ client.on("interactionCreate", async (interaction) => {
     }
 });
 
-client.login("MTUyNTMxNzE0NjY0Mzc5MTk0Mw.GvtsRR.JrA3GXi8Xko_YzOHxdaEy2VB9be7IdwAOaLpLg");
+client.login(TOKEN);
