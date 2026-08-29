@@ -21,7 +21,7 @@ const client = new Client({
 });
 
 const prefix = "h";
-const token = "MTUyNTMxNzE0NjY0Mzc5MTk0Mw.GxarEy.la0cgeJDCQwJmFus4S5ZCd5esEmyuDWxlWeMzk"
+const token = "MTUyNTMxNzE0NjY0Mzc5MTk0Mw.GDLKsL._ZEFTIKXT_hzWhGMeZjNyjAoQR2bw_62o_0n1Y"
 const OWNER_ID = "504850928445292555";
 
 // ===== QUẢN LÝ WARN (ĐỌC/GHI FILE warns.json) =====
@@ -1124,4 +1124,4 @@ client.on("interactionCreate", async (interaction) => {
     }
 });
 
-client.login("process.env.MTUyNTMxNzE0NjY0Mzc5MTk0Mw.GxarEy.la0cgeJDCQwJmFus4S5ZCd5esEmyuDWxlWeMzk");
+client.login("MTUyNTMxNzE0NjY0Mzc5MTk0Mw.GDLKsL._ZEFTIKXT_hzWhGMeZjNyjAoQR2bw_62o_0n1Y");
