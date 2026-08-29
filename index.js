@@ -1,3 +1,4 @@
+require('dotenv').config();
 const {
     Client,
     GatewayIntentBits,
@@ -21,7 +22,7 @@ const client = new Client({
 });
 
 const prefix = "h";
-const token = "MTUyNTMxNzE0NjY0Mzc5MTk0Mw.GDLKsL._ZEFTIKXT_hzWhGMeZjNyjAoQR2bw_62o_0n1Y"
+const token = "MTUyNTMxNzE0NjY0Mzc5MTk0Mw.GvtsRR.JrA3GXi8Xko_YzOHxdaEy2VB9be7IdwAOaLpLg"
 const OWNER_ID = "504850928445292555";
 
 // ===== QUẢN LÝ WARN (ĐỌC/GHI FILE warns.json) =====
