@@ -97,6 +97,7 @@ function saveWarns() {
     fs.writeFileSync(warnsFile, JSON.stringify(warns, null, 2));
 }
 // ===== Railway -> GitHub: debounce 2 phút sau lần thay đổi cuối =====
+const DATA_DIR = path.join(__dirname, "..", "data");
 const GITHUB_SYNC_BRANCH = process.env.GITHUB_BRANCH || "main";
 const GITHUB_SYNC_DELAY = 2 * 60 * 1000;
 const githubClient = process.env.GITHUB_TOKEN
@@ -247,7 +248,6 @@ const vipRoles = {
 
 
 // ===== Railway -> GitHub: debounce 2 phút sau lần thay đổi cuối =====
-const DATA_DIR = path.join(__dirname, "..", "data");
 const GITHUB_SYNC_BRANCH = process.env.GITHUB_BRANCH || "main";
 const GITHUB_SYNC_DELAY = 2 * 60 * 1000;
 const githubClient = process.env.GITHUB_TOKEN
